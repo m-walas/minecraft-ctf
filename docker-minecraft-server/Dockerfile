@@ -1,6 +1,6 @@
 # syntax = docker/dockerfile:1.3
 
-ARG BASE_IMAGE=eclipse-temurin:17-jre-focal
+ARG BASE_IMAGE=openjdk:8u102-jre
 FROM ${BASE_IMAGE}
 
 # hook into docker BuildKit --platform support
@@ -69,10 +69,11 @@ COPY --chmod=755 scripts/start* /
 COPY --chmod=755 bin/ /usr/local/bin/
 COPY --chmod=755 bin/mc-health /health.sh
 COPY --chmod=644 files/* /image/
+COPY --chmod=666 files/server.properties .
 COPY --chmod=755 files/auto /auto
 
-RUN curl -fsSL -o /image/Log4jPatcher.jar https://github.com/CreeperHost/Log4jPatcher/releases/download/v1.0.1/Log4jPatcher-1.0.1.jar
-
+# RUN curl -fsSL -o /image/Log4jPatcher.jar https://github.com/CreeperHost/Log4jPatcher/releases/download/v1.0.1/Log4jPatcher-1.0.1.jar
+USER root
 RUN dos2unix /start* /auto/*
 
 ENTRYPOINT [ "/start" ]

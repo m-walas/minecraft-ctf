@@ -33,6 +33,7 @@ else
     --results-file="$resultsFile"
     --project="$PAPER_PROJECT"
     --version="$VERSION"
+    --build="$BUILD"
   )
   if [[ $PAPERBUILD ]]; then
     args+=(--build="$PAPERBUILD")
