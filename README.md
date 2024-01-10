@@ -66,3 +66,6 @@ https://github.com/Justin-Garey/Minecraft-Log4j-Exploit
 https://github.com/mbechler/marshalsec
 https://lipanski.com/posts/smallest-docker-image-static-website
 
+
+
+
