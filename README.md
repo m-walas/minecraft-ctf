@@ -59,6 +59,15 @@ docker build . -t nazwa-obrazu:wersja
 docker run -p 25565:25565 -ti 
 ```
 
+EOL:
+```md
+
+VSCode:
+- Minecraft-Log4j-Exploit/server/start_server.sh
+- CTRL + SHIFT + P
+- EOL sequence
+
+```
 
 
 Credits:
@@ -66,3 +75,19 @@ https://github.com/Justin-Garey/Minecraft-Log4j-Exploit
 https://github.com/mbechler/marshalsec
 https://lipanski.com/posts/smallest-docker-image-static-website
 
+
+lf w starcie
+odpalic trzy kontenery bez przeszkod
+wejsc na server mc wpisac komende
+
+netcata nie ma na windowsie, trzeba wsl, albo zainstalowac,
+do pliku trzeba dawać to co chcemy uruchomić
+jak zatrzymać bash -c reverse shell?
+echo to wbudowana funkcja basha, a nie żadna binarka 
+
+
+allready allocated port: docker desktop delete container, 
+
+docker ps
+docker ps -a
+docker build && docker run, docker kill && docker remove
