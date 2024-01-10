@@ -90,4 +90,10 @@ allready allocated port: docker desktop delete container,
 
 docker ps
 docker ps -a
-docker build && docker run, docker kill && docker remove
+docker kill <id>
+docker remove <id>
+docker image prune
+docker container prune
+
+docker build && docker run
+docker kill && docker remove
