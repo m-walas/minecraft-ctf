@@ -76,6 +76,8 @@ Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hack
       - zbuduj obraz: `docker build . -t codehttp`,
       - uruchom kontener: `docker run -p 8888:8888 -ti codehttp`,
 
+   3. **Interesujący cię plik jest umieszczony gdzieś na systemie:**
+      - 
 
 
 ## Twoje zadanie
