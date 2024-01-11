@@ -8,7 +8,7 @@ Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was
 - Docker
 - Minecraft Launcher
 - Jeśli pracujesz na Windowsie, koniecznym może się okazać WSL
-- NetCat (nie dostępny na Windowsie, użyj WSL lub zainstaluj osobno)
+- NetCat (niedostępny na Windowsie, użyj WSL lub zainstaluj osobno)
 
 ## Szybki start
 ### Uruchamianie SKLauncher
@@ -82,6 +82,7 @@ docker container prune
 - [Minecraft-Log4j-Exploit](https://github.com/Justin-Garey/Minecraft-Log4j-Exploit) od Justina Gareya
 - [marshalsec](https://github.com/mbechler/marshalsec) od Marcina Bechlera
 - [Smallest Docker Image Static Website](https://lipanski.com/posts/smallest-docker-image-static-website) od Vladimira Lipanskiego
+- [Mapa Minecraft]() od XXX
 
 
 TODO:
