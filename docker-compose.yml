@@ -1,0 +1,15 @@
+version: '2'
+
+services:
+  mcexpl:
+    container_name: mcexpl
+    image: kwasnyy/mcctf:mcexpl  
+    ports:
+     - "25565:25565"
+
+  marshal:
+    container_name: marshal
+    image: kwasnyy/mcctf:marshal  
+    ports:
+     - "1389:1389"
+
