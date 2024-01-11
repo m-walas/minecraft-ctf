@@ -14,7 +14,7 @@ Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was
    - `docker run -p 25565:25565 -it kwasnyy/mcctf:mcexpl`
 2. Wykorzystaj podatność CVE-2021-44228 do uzyskania reverse shell
    - napoczęty `marshalsec/Dockerfile` może ci ułatwić,
-   - tak samo masz `codehttp/` gdzie manipulować trzeba tylko linijką pod "// TODO" w pliku `Log4jRCE.java`
+   - tak samo masz `codehttp/` gdzie manipulować trzeba tylko linijką gdzie ustawia zmienną `cmd`,
 3. Interesujący cię plik jest umieszczony gdzieś na systemie,
 4. Rozejrzyj się po plikach w folderze `/server`
 5. Po odczytaniu flagi zapraszamy do wspólnej gry :)
@@ -130,7 +130,7 @@ docker container prune
 - [Minecraft-Log4j-Exploit](https://github.com/Justin-Garey/Minecraft-Log4j-Exploit) od Justina Gareya
 - [marshalsec](https://github.com/mbechler/marshalsec) od Marcina Bechlera
 - [Smallest Docker Image Static Website](https://lipanski.com/posts/smallest-docker-image-static-website) od Vladimira Lipanskiego
-- [Mapa Minecraft]() od XXX
+- [Mapa Minecraft](https://www.minecraftxl.com/deep-sea-map/) od BlockWorks
 
 
 TODO:
