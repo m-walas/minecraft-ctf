@@ -3,6 +3,12 @@
 ## Wprowadzenie
 Witamy w `minecraft-ctf`, wyjątkowym wyzwaniu CTF stworzonym specjalnie dla Was! Twoim zadaniem będzie zdobycie flagi, wykorzystując podatność Log4j oraz kilka innych narzędzi, a to wszystko co najlepsze, z użyciem gry, którą chyba każdy zna! Przygotuj się na fascynujące wyzwanie! Owocnego hackowania i udanej zabawy!
 
+## Zasady CTF
+
+Uruchomiony kontener obrazu **kwasnyy/mcctf:mcexpl** jest atakowanym serwerem. Założenie jest, że nie masz do niego dostępu, nie masz o nim wiedzy (poza tym co piszemy tutaj). Więc zdobywanie wiedzy poprzez sprawdzanie `Dockerfile` albo włamywanie się poprzez `docker exec -it ID bash` jest bez sensu i nie jest rozwiązaniem CTF'a.
+Pozostałe uruchamiane kontenery są już twoją własnością, możesz robić z nimi co chcesz.
+
+
 ## Wymagania
 - Docker,
 - Java (do uruchomienia clienta Minecrafta - jeśli jej nie masz, pobierz i zainstaluj),
